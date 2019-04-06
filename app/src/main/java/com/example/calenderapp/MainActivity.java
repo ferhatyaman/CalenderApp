@@ -74,20 +74,11 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.Even
     }
     @Override
     public void onItemClick(int index) {
-        eventAdapter.notifyItemRemoved(index);
         updateEventList();
         eventAdapter.notifyDataSetChanged();
     }
-    @Override
-    public void onCheckedChanged(int index, boolean checked){
-        eventList.get(index).setStatus(checked);
-        eventAdapter.notifyDataSetChanged();
-    }
 
-    public void onSeekBarChanged(int index, int progress){
-        eventList.get(index).setPriority(progress);
-        eventAdapter.notifyDataSetChanged();
-    }
+
 
     private void updateEventList(){
         Iterator iter = eventList.iterator();
