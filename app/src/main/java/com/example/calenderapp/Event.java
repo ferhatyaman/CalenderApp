@@ -39,7 +39,11 @@ public class Event {
         this.note = note;
     }
 
-    public String getDate() {
+    public Date getDate(){
+        return date;
+    }
+
+    public String getDateString() {
         return date.toString();
     }
 

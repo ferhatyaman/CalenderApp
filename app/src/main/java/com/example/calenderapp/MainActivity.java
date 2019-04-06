@@ -4,10 +4,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.RadioButton;
+import android.widget.Switch;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
@@ -60,6 +63,10 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.Even
         recyclerView.setLayoutManager(layoutManager);
         eventAdapter = new EventAdapter(this, eventList);
         recyclerView.setAdapter(eventAdapter);
+        RadioButton dateRadio = findViewById(R.id.radioButton_date);
+        dateRadio.setOnClickListener(new Handler(this, 0));
+        RadioButton priorityRadio = findViewById(R.id.radioButton_priority);
+        priorityRadio.setOnClickListener(new Handler(this,1));
 
 
     }
@@ -73,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.Even
         eventAdapter.notifyDataSetChanged();
     }
 
+
     private void updateEventList(){
         Iterator iter = eventList.iterator();
         while (iter.hasNext()){
@@ -80,5 +88,13 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.Even
             if(item.getDeleted())
                 iter.remove();
         }
+    }
+
+    public void sortEvent(int sortStyle) {
+        if(sortStyle==0)
+            Collections.sort(eventList,new EventDateComparator());
+        else if (sortStyle==1)
+            Collections.sort(eventList,new EventPriorityComparator());
+        eventAdapter.notifyDataSetChanged();
     }
 }

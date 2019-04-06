@@ -39,7 +39,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
 
         myViewHolder.textViewTitle.setText(event.getTitle());
         myViewHolder.textViewNotes.setText(event.getNote());
-        myViewHolder.editTextDate.setText(event.getDate());
+        myViewHolder.editTextDate.setText(event.getDateString());
         myViewHolder.seekBarPriority.setProgress(event.getPriority());
         myViewHolder.switchCheck.setChecked(event.getStatus());
 
