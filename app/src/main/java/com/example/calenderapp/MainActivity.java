@@ -73,11 +73,22 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.Even
         recyclerView = findViewById(R.id.recyclerView);
     }
     @Override
-    public void onItemClick(int index) {
+    public void onItemClick(int position) {
         updateEventList();
         eventAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void onSwitchClick(int position, boolean checked) {
+        eventList.get(position).setStatus(checked);
+        eventAdapter.notifyItemChanged(position);
+    }
+
+    @Override
+    public void onSeekBarClick(int position, int progress) {
+        eventList.get(position).setPriority(progress);
+        eventAdapter.notifyItemChanged(position);
+    }
 
 
     private void updateEventList(){

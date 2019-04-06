@@ -43,16 +43,37 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
         myViewHolder.seekBarPriority.setProgress(event.getPriority());
         myViewHolder.switchCheck.setChecked(event.getStatus());
 
-        final int j = i;
+        final int position = i;
         myViewHolder.imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 event.setDeleted(true);
-                eventHandler.onItemClick(j);
+                eventHandler.onItemClick(position);
 
             }
         });
-
+        myViewHolder.switchCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                eventHandler.onSwitchClick(position, myViewHolder.switchCheck.isChecked());
+            }
+        });
+//        myViewHolder.seekBarPriority.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+//            @Override
+//            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+//                eventHandler.onSeekBarClick(position,progress);
+//            }
+//
+//            @Override
+//            public void onStartTrackingTouch(SeekBar seekBar) {
+//
+//            }
+//
+//            @Override
+//            public void onStopTrackingTouch(SeekBar seekBar) {
+//
+//            }
+//        });
     }
 
     @Override
@@ -84,6 +105,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
     }
 
     interface EventHandler {
-        void onItemClick(int index);
+        void onItemClick(int position);
+
+        void onSwitchClick(int position, boolean checked);
+
+        void onSeekBarClick(int position, int progress);
     }
 }
