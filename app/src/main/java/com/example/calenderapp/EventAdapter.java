@@ -36,25 +36,22 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
         final Event event = eventList.get(i);
 
-        if(!event.getDeleted()) {
 
+        myViewHolder.textViewTitle.setText(event.getTitle());
+        myViewHolder.textViewNotes.setText(event.getNote());
+        myViewHolder.editTextDate.setText(event.getDate());
+        myViewHolder.seekBarPriority.setProgress(event.getPriority());
+        myViewHolder.switchCheck.setChecked(event.getStatus());
 
-            myViewHolder.textViewTitle.setText(event.getTitle());
-            myViewHolder.textViewNotes.setText(event.getNote());
-            myViewHolder.editTextDate.setText(event.getDate());
-            myViewHolder.seekBarPriority.setProgress(event.getPriority());
-            myViewHolder.switchCheck.setChecked(event.getStatus());
+        final int j = i;
+        myViewHolder.imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                event.setDeleted(true);
+                eventHandler.onItemClick(j);
 
-            final int j = i;
-            myViewHolder.imageButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    event.setDeleted(true);
-                    eventHandler.onItemClick(j);
-
-                }
-            });
-        }
+            }
+        });
 
     }
 

@@ -6,8 +6,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class MainActivity extends AppCompatActivity implements EventAdapter.EventHandler {
 
@@ -39,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.Even
                     new Event("CS310 Final","All topics includes", "28/05/2019", 1, 1),
                     new Event("Date with Juliet","Hilton hotel, Mecidiyekoy", "06/04/2019", 4, 0),
             };
-            eventList = Arrays.asList(events);
+            eventList = new ArrayList<>(Arrays.asList(events));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -66,6 +69,16 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.Even
     }
     @Override
     public void onItemClick(int index) {
+        updateEventList();
         eventAdapter.notifyDataSetChanged();
+    }
+
+    private void updateEventList(){
+        Iterator iter = eventList.iterator();
+        while (iter.hasNext()){
+            Event item = (Event) iter.next();
+            if(item.getDeleted())
+                iter.remove();
+        }
     }
 }
